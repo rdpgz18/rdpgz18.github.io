@@ -76,4 +76,38 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+ // --- LOGIKA KIRIM PESAN KE WHATSAPP ---
+    const contactForm = document.querySelector('.contact-form');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah form untuk refresh halaman
+
+            // Ambil nilai dari input form
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // Nomor WhatsApp tujuan (ganti dengan nomor Anda, termasuk kode negara tanpa + atau 00)
+            const whatsappNumber = '622219508488'; // Contoh: Ganti dengan nomor WhatsApp Anda (misal: 62812xxxxxxxxx)
+
+            // Buat pesan yang akan dikirim ke WhatsApp
+            // Gunakan encodeURIComponent untuk memastikan teks aman di URL
+            const whatsappMessage = `Halo, saya ${encodeURIComponent(name)} (${encodeURIComponent(email)}).%0A%0A${encodeURIComponent(message)}`;
+
+            // Buat URL WhatsApp API
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+            // Buka WhatsApp di tab/jendela baru
+            window.open(whatsappURL, '_blank');
+
+            // Opsional: Reset form setelah pengiriman
+            contactForm.reset();
+
+            // Opsional: Tampilkan pesan sukses ke pengguna
+            alert('Pesan Anda akan dialihkan ke WhatsApp. Silakan kirim pesan dari sana!');
+        });
+    }
+
+    
 });
