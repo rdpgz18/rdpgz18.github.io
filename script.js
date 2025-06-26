@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const message = document.getElementById('message').value;
 
             // Nomor WhatsApp tujuan (ganti dengan nomor Anda, termasuk kode negara tanpa + atau 00)
-            const whatsappNumber = '622219508488'; // Contoh: Ganti dengan nomor WhatsApp Anda (misal: 62812xxxxxxxxx)
+            const whatsappNumber = '6282219508488'; // Contoh: Ganti dengan nomor WhatsApp Anda (misal: 62812xxxxxxxxx)
 
             // Buat pesan yang akan dikirim ke WhatsApp
             // Gunakan encodeURIComponent untuk memastikan teks aman di URL
