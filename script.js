@@ -66,17 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentYearSpan.textContent = new Date().getFullYear();
     }
 
-    // Smooth Scrolling for Navigation
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
- // --- LOGIKA KIRIM PESAN KE WHATSAPP ---
+    // --- LOGIKA KIRIM PESAN KE WHATSAPP ---
     const contactForm = document.querySelector('.contact-form');
 
     if (contactForm) {
@@ -109,5 +99,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    
+
+    // Smooth Scrolling for Navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
 });
