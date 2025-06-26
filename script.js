@@ -66,10 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
         currentYearSpan.textContent = new Date().getFullYear();
     }
 
-    // --- LOGIKA KIRIM PESAN KE WHATSAPP ---
+     // --- Logika Kirim Pesan ke WhatsApp dengan Notifikasi Modal ---
     const contactForm = document.querySelector('.contact-form');
+    const whatsappNotificationModal = document.getElementById('whatsappNotificationModal');
+    const closeButton = whatsappNotificationModal.querySelector('.close-button');
+    const confirmRedirectButton = document.getElementById('confirmWhatsappRedirect');
 
-    if (contactForm) {
+    let whatsappURLToOpen = ''; // Variabel untuk menyimpan URL WhatsApp
+
+    if (contactForm && whatsappNotificationModal) {
         contactForm.addEventListener('submit', function(event) {
             event.preventDefault(); // Mencegah form untuk refresh halaman
 
@@ -82,23 +87,39 @@ document.addEventListener('DOMContentLoaded', () => {
             const whatsappNumber = '6282219508488'; // Contoh: Ganti dengan nomor WhatsApp Anda (misal: 62812xxxxxxxxx)
 
             // Buat pesan yang akan dikirim ke WhatsApp
-            // Gunakan encodeURIComponent untuk memastikan teks aman di URL
             const whatsappMessage = `Halo, saya ${encodeURIComponent(name)} (${encodeURIComponent(email)}).%0A%0A${encodeURIComponent(message)}`;
 
-            // Buat URL WhatsApp API
-            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+            // Simpan URL WhatsApp ke variabel global sementara
+            whatsappURLToOpen = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
-            // Buka WhatsApp di tab/jendela baru
-            window.open(whatsappURL, '_blank');
+            // Tampilkan modal notifikasi
+            whatsappNotificationModal.classList.add('show');
 
-            // Opsional: Reset form setelah pengiriman
-            contactForm.reset();
+            // Opsional: Reset form setelah menampilkan modal (atau setelah konfirmasi)
+            // contactForm.reset();
+        });
 
-            // Opsional: Tampilkan pesan sukses ke pengguna
-            alert('Pesan Anda akan dialihkan ke WhatsApp. Silakan kirim pesan dari sana!');
+        // Menutup modal saat tombol 'x' diklik
+        closeButton.addEventListener('click', () => {
+            whatsappNotificationModal.classList.remove('show');
+        });
+
+        // Menutup modal saat area di luar modal diklik
+        window.addEventListener('click', (event) => {
+            if (event.target == whatsappNotificationModal) {
+                whatsappNotificationModal.classList.remove('show');
+            }
+        });
+
+        // Mengalihkan ke WhatsApp saat tombol konfirmasi di modal diklik
+        confirmRedirectButton.addEventListener('click', () => {
+            if (whatsappURLToOpen) {
+                window.open(whatsappURLToOpen, '_blank');
+                whatsappNotificationModal.classList.remove('show'); // Tutup modal setelah dialihkan
+                contactForm.reset(); // Reset form setelah pengiriman
+            }
         });
     }
-
 
     // Smooth Scrolling for Navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
